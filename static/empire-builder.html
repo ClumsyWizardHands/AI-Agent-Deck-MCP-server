@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empire Builder - AI Agent Swarm</title>
+    <link rel="stylesheet" href="/static/empire-builder.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Empire Builder</h1>
+            <p class="subtitle">Define your empire to generate a custom AI agent swarm</p>
+        </header>
+
+        <form id="empireForm">
+            <!-- Empire Name & Description -->
+            <section class="form-section">
+                <h2>Empire Name & Description</h2>
+                <p class="section-description">Provide a name and comprehensive description of your empire</p>
+                <textarea 
+                    id="empireNameDescription" 
+                    name="empire_name_and_description" 
+                    placeholder="Example: The Architect of Cognitive Coalitions&#10;Brett Horvath's empire centers around strategic foresight..."
+                    required
+                ></textarea>
+            </section>
+
+            <!-- Ends -->
+            <section class="form-section">
+                <h2>Ends</h2>
+                <p class="section-description">What you seek to make real</p>
+                <div id="ends-container" class="dynamic-fields">
+                    <div class="field-group">
+                        <textarea 
+                            name="ends[]" 
+                            placeholder="Example: Establish durable, AI-literate democratic coalitions..."
+                            required
+                        ></textarea>
+                        <button type="button" class="remove-btn" onclick="removeField(this)" style="display: none;">×</button>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addField('ends')">+ Add Another End</button>
+            </section>
+
+            <!-- Means -->
+            <section class="form-section">
+                <h2>Means</h2>
+                <p class="section-description">Tools and capacities at your disposal</p>
+                <div id="means-container" class="dynamic-fields">
+                    <div class="field-group">
+                        <textarea 
+                            name="means[]" 
+                            placeholder="Example: Empire modeling systems that synthesize relational game theory..."
+                            required
+                        ></textarea>
+                        <button type="button" class="remove-btn" onclick="removeField(this)" style="display: none;">×</button>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addField('means')">+ Add Another Means</button>
+            </section>
+
+            <!-- Principles -->
+            <section class="form-section">
+                <h2>Principles</h2>
+                <p class="section-description">Deep structural drivers of behavior</p>
+                <div id="principles-container" class="dynamic-fields">
+                    <div class="field-group">
+                        <textarea 
+                            name="principles[]" 
+                            placeholder="Example: Narrative Determines Reality: Systems and societies are built on story before law or code..."
+                            required
+                        ></textarea>
+                        <button type="button" class="remove-btn" onclick="removeField(this)" style="display: none;">×</button>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addField('principles')">+ Add Another Principle</button>
+            </section>
+
+            <!-- Identity -->
+            <section class="form-section">
+                <h2>Identity</h2>
+                <p class="section-description">Stories that shape your actions</p>
+                <div id="identity-container" class="dynamic-fields">
+                    <div class="field-group">
+                        <textarea 
+                            name="identity[]" 
+                            placeholder="Example: I build cognitive infrastructure for coalitions that don't realize they're already at war..."
+                            required
+                        ></textarea>
+                        <button type="button" class="remove-btn" onclick="removeField(this)" style="display: none;">×</button>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addField('identity')">+ Add Another Identity</button>
+            </section>
+
+            <!-- Resentments -->
+            <section class="form-section">
+                <h2>Resentments</h2>
+                <p class="section-description">What haunts or drives you</p>
+                <div id="resentments-container" class="dynamic-fields">
+                    <div class="field-group">
+                        <textarea 
+                            name="resentments[]" 
+                            placeholder="Example: Resentment of AI naiveté among civil society allies..."
+                            required
+                        ></textarea>
+                        <button type="button" class="remove-btn" onclick="removeField(this)" style="display: none;">×</button>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addField('resentments')">+ Add Another Resentment</button>
+            </section>
+
+            <!-- Emotions -->
+            <section class="form-section">
+                <h2>Emotions</h2>
+                <p class="section-description">Strategic emotional patterns</p>
+                <div id="emotions-container" class="dynamic-fields">
+                    <div class="field-group">
+                        <textarea 
+                            name="emotions[]" 
+                            placeholder="Example: Sorrow for the loss of meaning and memory across digital public spheres..."
+                            required
+                        ></textarea>
+                        <button type="button" class="remove-btn" onclick="removeField(this)" style="display: none;">×</button>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" onclick="addField('emotions')">+ Add Another Emotion</button>
+            </section>
+
+            <!-- Submit Button -->
+            <div class="submit-section">
+                <button type="submit" class="submit-btn" id="submitBtn">Generate Agent Swarm</button>
+                <div id="loading" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <span>Analyzing your empire and generating agents...</span>
+                </div>
+            </div>
+        </form>
+
+        <!-- Results Section -->
+        <div id="results" class="results-section" style="display: none;">
+            <h2>Generated Agent Swarm</h2>
+            <div id="resultsContent"></div>
+            <button type="button" class="new-empire-btn" onclick="startNewEmpire()">Create New Empire</button>
+        </div>
+    </div>
+
+    <script src="/static/empire-builder.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, List
 
 class EmpireDescriptionRequest(BaseModel):
     """
@@ -31,6 +31,14 @@ class EmpireDescriptionRequest(BaseModel):
         min_length=1, 
         description="Key challenges faced by the empire (must contain at least one element)"
     )
+    resentments: Optional[list[str]] = Field(
+        None,
+        description="Unmet needs, grievances, perceived injustices that influence behavior"
+    )
+    emotions: Optional[list[str]] = Field(
+        None,
+        description="Emotional states that influence decisions"
+    )
     operational_style: Optional[str] = Field(
         None, 
         description="Operational style of the empire"
@@ -60,10 +68,6 @@ class AgentSpecificationResponse(BaseModel):
         ..., 
         description="Specific empire need or component this agent addresses"
     )
-    primary_domain_category: str = Field(
-        ..., 
-        description="Primary domain category for the agent"
-    )
     suggested_technical_approach: str = Field(
         ..., 
         description="Suggested technical approach for implementing the agent"
@@ -83,4 +87,45 @@ class AgentSpecificationResponse(BaseModel):
     potential_dependencies_or_integrations: Optional[list[str]] = Field(
         None, 
         description="Potential dependencies or integrations needed"
+    )
+
+
+class ExtendedEmpireDescription(BaseModel):
+    """
+    Extended empire description model with psychological and strategic dimensions.
+    Captures a richer, more nuanced view of an empire including emotional and identity aspects.
+    """
+    empire_name_and_description: str = Field(
+        ..., 
+        description="Full empire name and comprehensive description"
+    )
+    ends: List[str] = Field(
+        ..., 
+        min_items=1,
+        description="What the empire seeks to make real"
+    )
+    means: List[str] = Field(
+        ..., 
+        min_items=1,
+        description="Tools and capacities at the empire's disposal"
+    )
+    principles: List[str] = Field(
+        ..., 
+        min_items=1,
+        description="Deep structural drivers of behavior"
+    )
+    identity: List[str] = Field(
+        ..., 
+        min_items=1,
+        description="Stories that shape the empire's actions"
+    )
+    resentments: List[str] = Field(
+        ..., 
+        min_items=1,
+        description="What haunts or drives the empire"
+    )
+    emotions: List[str] = Field(
+        ..., 
+        min_items=1,
+        description="Strategic emotional patterns"
     )

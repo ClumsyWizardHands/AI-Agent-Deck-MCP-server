@@ -1,7 +1,7 @@
 # Active Context: Agent Swarm MCP Server
 
 ## Current Focus
-**Project Initialization Complete** - Successfully set up the FastAPI-based MCP server foundation
+**JSON Parsing Error Resolution** - Fixed Claude response parsing issues with enhanced error handling
 
 ## Recent Decisions
 
@@ -26,7 +26,28 @@
 
 ## Current Work Items
 
-### Completed This Session
+### Completed This Session (5/23/2025 - Part 3)
+17. ✅ Added debug logging to Claude service
+    - Logs raw Claude responses for troubleshooting
+    - Helps identify formatting issues
+18. ✅ Improved master prompt clarity
+    - Added explicit instructions about JSON-only output
+    - No markdown formatting allowed
+    - Must start with [ and end with ]
+    - Multiple reminders about output format
+19. ✅ Added response cleaning logic
+    - Automatically removes markdown code blocks
+    - Extracts JSON array from mixed text
+    - Handles common formatting issues from LLMs
+20. ✅ Enhanced JSON parsing with automatic repair (5/23/2025 - Part 4)
+    - Added regex-based fixes for missing commas between objects
+    - Fixes pattern: `} {` → `}, {`
+    - Removes trailing commas: `,]` → `]` and `,}` → `}`
+    - Added detailed error diagnostics showing exact line/column
+    - Saves problematic JSON to temporary file for debugging
+    - Multiple fix attempts before failing
+
+### Completed Earlier This Session
 1. ✅ Project directory structure created
 2. ✅ Python virtual environment set up
 3. ✅ Core dependencies installed and verified
@@ -53,21 +74,37 @@
     - Loads master prompt from file system
     - Calls Claude service with empire data and API key
     - Returns AI-generated agent specifications
+13. ✅ Empire Builder UI created
+    - Built clean HTML/CSS/JavaScript interface
+    - Dynamic form fields with add/remove functionality
+    - Auto-expanding textareas
+    - Psychological/strategic empire format:
+      - Empire Name & Description
+      - Ends (what you seek to make real)
+      - Means (tools and capacities)
+      - Principles (deep structural drivers)
+      - Identity (stories that shape actions)
+      - Resentments (what haunts or drives)
+      - Emotions (strategic emotional patterns)
+14. ✅ Extended Empire Model implemented
+    - Created ExtendedEmpireDescription model
+    - Converter function maps to standard format
+    - Intelligent domain detection from content
+    - Preserves psychological/strategic richness
+15. ✅ New API endpoint /suggest-agents-extended
+    - Accepts extended empire format
+    - Converts to standard format automatically
+    - Uses existing Claude integration
+    - No changes needed to master prompt
+16. ✅ Static file serving configured
+    - Fixed path issues for CSS and JavaScript
+    - Proper routing for UI assets
+    - Empire Builder accessible at /empire-builder
 
 ### Immediate Next Steps
-1. **Exception Handling Improvements**: ✅ Enhanced Claude service error handling (5/23/2025)
-   - Changed validation errors to use 502 (Bad Gateway) status code
-   - Properly indicates upstream service (Claude) returning invalid data
-   - Maintains comprehensive error handling for all failure scenarios
-2. **CORS Middleware**: ✅ Added CORS support for frontend integration (5/23/2025)
-   - Imported CORSMiddleware from fastapi.middleware.cors
-   - Configured with permissive settings for development (allow_origins=["*"])
-   - Important: For production, restrict origins to actual UI domain
-3. **Documentation and Setup**: ✅ Enhanced project documentation (5/23/2025)
-   - Updated README.md with comprehensive setup instructions
-   - Added environment variable configuration guide
-   - Created .env.example file for easy setup
-   - Included CORS configuration instructions for production
+1. **Testing**: Test the enhanced JSON parsing with various empire descriptions
+2. **Monitor Logs**: Watch server console for detailed error diagnostics
+3. **Iterate on Prompt**: If Claude continues to produce malformed JSON, may need to further refine the master prompt
 4. **Agent Suggestion Logic Enhancement**: Replace placeholder logic with AI/ML-based analysis
 5. **MCP Protocol Implementation**: Define actual MCP protocol handlers
 6. **Agent Registration**: Create endpoints for agent registration and discovery
@@ -82,8 +119,21 @@
 - **Security Model**: Authentication and authorization approach
 
 ## Context for Next Session
-- **Server Status**: Basic FastAPI server functional and tested
-- **Command to Run**: `agent_swarm_mcp_server\venv\Scripts\python agent_swarm_mcp_server\app\main.py`
-- **Verified Endpoints**: `/` (root), `/health` (health check), `/mcp` (placeholder)
+- **Server Status**: Running with enhanced JSON parsing and error handling
+- **Command to Run**: `cd agent_swarm_mcp_server; venv\Scripts\python -m app.main`
+- **Verified Endpoints**: `/` (root), `/health` (health check), `/mcp` (placeholder), `/empire-builder` (UI), `/suggest-agents-extended` (API)
 - **Documentation**: Available at `/docs` and `/redoc` when server is running
 - **Memory Bank**: Complete context established for future development
+- **JSON Parsing**: Enhanced with automatic repair for common LLM formatting issues
+
+## Recent JSON Parsing Enhancements (5/23/2025 - Part 4)
+- **Problem**: Claude generating JSON with missing comma delimiters
+- **Solution**: Added regex-based automatic fixes for common JSON issues
+- **Debug Features**: 
+  - Logs exact error location (line/column)
+  - Shows context around error
+  - Saves problematic JSON to temp file
+- **Fix Patterns**:
+  - Missing commas: `} {` → `}, {`
+  - Trailing commas: `,]` → `]` and `,}` → `}`
+- **Testing**: Server now running, ready for testing with empire descriptions
