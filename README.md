@@ -1,6 +1,10 @@
 # Agent Swarm MCP Server
 
-A FastAPI-based MCP (Model Context Protocol) server for agent swarm operations.
+A FastAPI-based MCP (Model Context Protocol) server for agent swarm operations that generates AI agent specifications using Claude API.
+
+## Description
+
+This server provides an API endpoint that accepts empire/organization descriptions and generates tailored AI agent specifications. It leverages Claude AI to analyze requirements and suggest optimal agent configurations for building AI agent swarms.
 
 ## Project Structure
 
@@ -8,54 +12,86 @@ A FastAPI-based MCP (Model Context Protocol) server for agent swarm operations.
 agent_swarm_mcp_server/
 ├── venv/                    # Python virtual environment
 ├── app/
-│   └── main.py             # FastAPI application entry point
+│   ├── __init__.py         # Package initializer
+│   ├── main.py             # FastAPI application entry point
+│   ├── models.py           # Pydantic data models
+│   ├── config.py           # Configuration management
+│   └── claude_service.py   # Claude API integration
 ├── prompts/                # Directory for prompt templates
+│   └── master_prompt.txt   # AI Agent Swarm Architect prompt
+├── memory-bank/            # Project context and documentation
 ├── requirements.txt        # Python dependencies
+├── .env.example           # Example environment variables
+├── .gitignore             # Git ignore file
 └── README.md              # This file
 ```
 
-## Dependencies
+## Prerequisites
 
-- **fastapi**: Modern, fast web framework for building APIs with Python
-- **uvicorn[standard]**: ASGI server for serving the FastAPI application
-- **pydantic**: Data validation and settings management using Python type annotations
-- **httpx**: Async HTTP client for making external API requests
+- Python 3.7 or higher
+- Claude API key from Anthropic
 
 ## Setup Instructions
 
-### 1. Virtual Environment
+### 1. Clone the Repository
 
-The project includes a pre-configured virtual environment. To activate it:
+```bash
+git clone <repository-url>
+cd agent_swarm_mcp_server
+```
+
+### 2. Create Virtual Environment
 
 **Windows:**
 ```bash
+python -m venv venv
 venv\Scripts\activate
 ```
 
 **Linux/macOS:**
 ```bash
+python3 -m venv venv
 source venv/bin/activate
 ```
 
-### 2. Install Dependencies
-
-Dependencies are already installed in the virtual environment. If you need to reinstall:
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run the Server
+### 4. Configure Environment Variables
+
+Create a `.env` file by copying the example:
+
+```bash
+cp .env.example .env
+```
+
+Edit the `.env` file and set your Claude API key:
+
+```
+CLAUDE_API_KEY=YOUR_CLAUDE_API_KEY_HERE
+MASTER_PROMPT_PATH=./prompts/master_prompt.txt
+```
+
+**Important:** Never commit your `.env` file to version control. The `.gitignore` file is already configured to exclude it.
+
+### 5. Run the Server
+
+Using uvicorn with auto-reload (recommended for development):
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Or run directly with Python:
 
 ```bash
 python app/main.py
 ```
 
-Or using uvicorn directly:
-
-```bash
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-```
+The server will start on `http://localhost:8000`
 
 ## API Endpoints
 
@@ -64,6 +100,11 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 ### Health Check
 - **GET** `/health` - Server health status
+
+### Agent Suggestions
+- **POST** `/suggest-agents` - Generate AI agent specifications based on empire description
+  - Request body: `EmpireDescriptionRequest` (see models.py for schema)
+  - Response: List of `AgentSpecificationResponse` objects
 
 ### MCP Protocol
 - **POST** `/mcp` - MCP protocol endpoint (placeholder for future implementation)
@@ -74,22 +115,47 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 ## Development
 
-The server runs on `http://localhost:8000` by default.
-
 Access the interactive API documentation at:
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
 
-## MCP Integration
+### CORS Configuration
 
-This server is designed to be extended with MCP (Model Context Protocol) functionality. The `/mcp` endpoint serves as a placeholder for implementing the MCP protocol handlers.
+The server is configured with CORS middleware to allow cross-origin requests. In development, all origins are allowed. For production deployment, update the `allow_origins` parameter in `app/main.py` to specify your frontend domain:
 
-The `prompts/` directory is intended for storing prompt templates that can be used by the MCP server.
+```python
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://your-frontend-domain.com"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `CLAUDE_API_KEY` | Your Claude API key from Anthropic | Required |
+| `MASTER_PROMPT_PATH` | Path to the master prompt template | `./prompts/master_prompt.txt` |
+
+## Error Handling
+
+The API uses standard HTTP status codes:
+- `200` - Success
+- `422` - Validation Error (invalid request data)
+- `500` - Internal Server Error
+- `502` - Bad Gateway (Claude API returned invalid data)
+- `503` - Service Unavailable (network errors)
+- `504` - Gateway Timeout (Claude API timeout)
 
 ## Next Steps
 
-1. Implement MCP protocol handlers
+1. Implement full MCP protocol handlers
 2. Add authentication and authorization
-3. Create prompt templates in the `prompts/` directory
-4. Add logging and monitoring
-5. Implement agent swarm coordination logic
+3. Implement agent registration and discovery
+4. Add message routing for agent-to-agent communication
+5. Add structured logging and monitoring
+6. Implement agent state management
+7. Add database integration for persistence
