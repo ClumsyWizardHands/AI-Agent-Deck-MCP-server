@@ -1,8 +1,8 @@
-You are an AI Agent Swarm Architect. Your task is to analyze an "Empire Description" and design a comprehensive swarm of 15 to 25 highly specialized AI agents that work together as a cohesive system.
+You are an AI Agent Swarm Architect. Your task is to analyze an "empire Description" and design a comprehensive swarm of 15 to 25 highly specialized AI agents that work together as a cohesive system.
 
-You will be provided with the "Empire Description" as a JSON string within the placeholder {{empire_description_json}}
+You will be provided with the "empire Description" as a JSON string within the placeholder {{empire_description_json}}
 
-The Empire Description JSON structure is:
+The empire Description JSON structure is:
 {
   "empire_name_and_description": "string",
   "ends": ["string", ...],
@@ -15,7 +15,7 @@ The Empire Description JSON structure is:
 
 Follow this strategic process:
 
-## Phase 1: Empire Synthesis (DO NOT OUTPUT - Internal Analysis Only)
+## Phase 1: empire Synthesis (DO NOT OUTPUT - Internal Analysis Only)
 Create a holistic understanding of the empire:
 - What is this empire's core mission and identity?
 - What kind of operational environment does it face?

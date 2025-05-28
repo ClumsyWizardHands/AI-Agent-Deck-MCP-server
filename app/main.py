@@ -70,7 +70,7 @@ async def root():
         "empire_builder": "/empire-builder"
     }
 
-# Empire Builder UI endpoint
+# empire Builder UI endpoint
 @app.get("/empire-builder")
 async def empire_builder():
     html_path = os.path.join(static_dir, "empire-builder.html")
@@ -114,7 +114,7 @@ def convert_extended_to_standard(extended: ExtendedEmpireDescription) -> EmpireD
     # Extract empire name from the first line or until first period/newline
     empire_text = extended.empire_name_and_description.strip()
     empire_name_match = re.match(r'^([^.\n]+)', empire_text)
-    empire_name = empire_name_match.group(1).strip() if empire_name_match else "Unknown Empire"
+    empire_name = empire_name_match.group(1).strip() if empire_name_match else "Unknown empire"
     
     # Detect primary focus domains from content
     # You could enhance this with more sophisticated keyword detection
@@ -170,7 +170,7 @@ async def suggest_agents_extended_endpoint(extended_empire: ExtendedEmpireDescri
     # Log the incoming request for debugging
     print("=" * 80)
     print("INCOMING REQUEST FROM UI:")
-    print(f"Empire Name: {extended_empire.empire_name_and_description[:100]}...")
+    print(f"empire Name: {extended_empire.empire_name_and_description[:100]}...")
     print(f"Ends: {len(extended_empire.ends)} items")
     print(f"Means: {len(extended_empire.means)} items")
     print(f"Principles: {len(extended_empire.principles)} items")

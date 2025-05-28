@@ -1,4 +1,4 @@
-// Empire Builder JavaScript
+// empire Builder JavaScript
 
 // Auto-resize textareas
 function autoResizeTextarea(textarea) {
@@ -78,7 +78,7 @@ function updateRemoveButtons(fieldType) {
 function getPlaceholderForField(fieldType) {
     const placeholders = {
         ends: 'Example: Establish durable, AI-literate democratic coalitions...',
-        means: 'Example: Empire modeling systems that synthesize relational game theory...',
+        means: 'Example: empire modeling systems that synthesize relational game theory...',
         principles: 'Example: Narrative Determines Reality: Systems and societies are built on story before law or code...',
         identity: 'Example: I build cognitive infrastructure for coalitions that don\'t realize they\'re already at war...',
         resentments: 'Example: Resentment of AI naiveté among civil society allies...',
@@ -150,11 +150,11 @@ function displayResults(agents) {
                 <div class="agent-id">${agent.agent_id || 'No ID'}</div>
                 
                 <div class="agent-detail">
-                    <strong>Purpose & Tasks:</strong> ${agent.agent_purpose_and_tasks || 'No description'}
+                    <strong>purpose & tasks:</strong> ${agent.agent_purpose_and_tasks || 'No description'}
                 </div>
                 
                 <div class="agent-detail">
-                    <strong>Empire Component:</strong> ${agent.linked_empire_need_or_component || 'Not specified'}
+                    <strong>empire component:</strong> ${agent.linked_empire_need_or_component || 'Not specified'}
                 </div>
                 
                 <div class="agent-detail">
@@ -162,11 +162,11 @@ function displayResults(agents) {
                 </div>
                 
                 <div class="agent-detail">
-                    <strong>Technical Approach:</strong> ${agent.suggested_technical_approach || 'Not specified'}
+                    <strong>technical approach:</strong> ${agent.suggested_technical_approach || 'Not specified'}
                 </div>
                 
                 <div class="agent-detail">
-                    <strong>Key Inputs:</strong>
+                    <strong>key inputs:</strong>
                     <ul class="agent-list">
                         ${agent.key_data_inputs && agent.key_data_inputs.length > 0 
                             ? agent.key_data_inputs.map(input => `<li>${input}</li>`).join('')
@@ -175,7 +175,7 @@ function displayResults(agents) {
                 </div>
                 
                 <div class="agent-detail">
-                    <strong>Key Outputs/Actions:</strong>
+                    <strong>key outputs/actions:</strong>
                     <ul class="agent-list">
                         ${agent.key_data_outputs_or_actions && agent.key_data_outputs_or_actions.length > 0
                             ? agent.key_data_outputs_or_actions.map(output => `<li>${output}</li>`).join('')
@@ -185,7 +185,7 @@ function displayResults(agents) {
                 
                 ${agent.potential_dependencies_or_integrations && agent.potential_dependencies_or_integrations.length > 0 ? `
                 <div class="agent-detail">
-                    <strong>Dependencies/Integrations:</strong>
+                    <strong>dependencies/integrations:</strong>
                     <ul class="agent-list">
                         ${agent.potential_dependencies_or_integrations.map(dep => `<li>${dep}</li>`).join('')}
                     </ul>
@@ -207,8 +207,8 @@ function displayResults(agents) {
             errorCard.style.backgroundColor = '#ffeeee';
             errorCard.innerHTML = `
                 <h3>Error rendering agent ${index + 1}</h3>
-                <p>Error: ${error.message}</p>
-                <p>Agent ID: ${agent.agent_id || 'Unknown'}</p>
+                <p>error: ${error.message}</p>
+                <p>agent id: ${agent.agent_id || 'Unknown'}</p>
             `;
             resultsContent.appendChild(errorCard);
         }
